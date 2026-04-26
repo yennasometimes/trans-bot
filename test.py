@@ -7,6 +7,9 @@ import discord
 
 from dotenv import load_dotenv, dotenv_values
 
+load_dotenv()
+
+
 intents = discord.Intents.default()
 intents.message_content = True
 
@@ -21,9 +24,8 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.content.startswith('$hello'):
+    if message. content.startswith('$hello'):
         await message.channel.send('Hello!')
 
-print(os.getenv("KEY"))
+client.run(os.getenv("MK_KEY"))
 
-client.run(os.getenv("KEY"))
