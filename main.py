@@ -5,13 +5,14 @@ from dotenv import load_dotenv
 
 import discord
 
-from discord.ext import commands
 
 import Points.points
 
-from utils import readJson, writeJson, getName, bot
+from utils import bot
 
 load_dotenv()
+
+_ = Points
 
 
 @bot.event
