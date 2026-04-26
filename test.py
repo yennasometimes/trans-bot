@@ -1,6 +1,10 @@
 # This example requires the 'message_content' intent.
 
 import discord
+import os
+from dotenv import load_dotenv, dotenv_values
+
+load_dotenv()
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -19,4 +23,4 @@ async def on_message(message):
     if message.content.startswith('$hello'):
         await message.channel.send('Hello!')
 
-client.run('MTQ5Nzc4NjU3MDc2ODM4ODI4OA.GNlAWv.mLybUAo1Z0yFv7arQ4euQwumBX-NLYTZa7ogns')
+client.run(os.getenv("KEY"))
