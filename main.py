@@ -28,11 +28,13 @@ async def on_ready():
         print(f"Error syncing commands: {e}")
 
 
+#  Flip a coin command
 @bot.tree.command(description="Flips a coin", guild=guildID)
 async def flip(ctx: discord.Interaction):
     await ctx.response.send_message(random.choice(["Heads!", "Tails!"]))
 
 
+#  Random number command
 @bot.tree.command(description="Generates a random integer", guild=guildID)
 @discord.app_commands.describe(a="Lower bound; upper bound if b is left empty", b="Upper bound")
 async def randomnum(ctx: discord.Interaction, a: int, b: int = None):
@@ -42,9 +44,10 @@ async def randomnum(ctx: discord.Interaction, a: int, b: int = None):
     await ctx.response.send_message(random.randint(int(a), int(b)))
 
 
+#  Points commands
 @bot.tree.command(description="Points commands", guild=guildID)
 @discord.app_commands.describe(action="What you want to do", points="How much points to modify", member="Who will be affected")
-async def points(ctx: discord.Interaction, action: Literal["balance", "award", "remove", "transfer"] = None, points: int = None, member: discord.User = None):
+async def points(ctx: discord.Interaction, action: Literal["balance", "award", "remove", "transfer"], points: int = None, member: discord.User = None):
     match action:
         case "balance":
             if member is None:
@@ -73,7 +76,7 @@ async def points(ctx: discord.Interaction, action: Literal["balance", "award", "
         
         case "transfer":
             if member is None:
-                await ctx.response.send_message("Please add the roomate to give points to.")
+                await ctx.response.send_message('Please add the roomate to give points to.')
                 return
 
             sender = readJson(getName(ctx.user))
@@ -97,9 +100,10 @@ async def points(ctx: discord.Interaction, action: Literal["balance", "award", "
             await ctx.response.send_message("Please check your syntax.")
 
 
+#  Chore commands
 @bot.tree.command(description="Chore commands", guild=guildID)
 @discord.app_commands.describe(action="What you want to do", chore="Chore to modify", member="Who will be affected")
-async def chores(ctx: discord.Interaction, action: Literal["view", "add", "remove", "transfer"] = None, chore: str = None, member: discord.User = None):
+async def chores(ctx: discord.Interaction, action: Literal["view", "add", "remove", "transfer"], chore: str = None, member: discord.User = None):
     match action:
         case "view":
             if member is None:
@@ -116,7 +120,7 @@ async def chores(ctx: discord.Interaction, action: Literal["view", "add", "remov
             data["Chores"].append(chore)
 
             writeJson(data, getName(member))
-            await ctx.response.send_message(f'{getName(member)}s chores are now {", ".join(data["Chores"])}.')
+            await ctx.response.send_message(f'{getName(member)}\'s chores are now {", ".join(data["Chores"])}.')
         
 
         case "remove":
