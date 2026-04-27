@@ -12,7 +12,7 @@ nicksToUsers = {
     ".axolotter": "Jax",
     "typowriter2060": "Jamie",
     "zzero123": "Jay",
-    "yennasometimes": "Yenna",
+    "753969299718406247": "Yenna",
     "dusklord121": "Ben",
     "swethort": "Melanie"
 }
@@ -24,8 +24,8 @@ intents.message_content = True
 bot = commands.Bot(command_prefix='!$', intents=intents)
 
 
-def getName(member: discord.Member):
-    return (nicksToUsers[member.name])
+def getName(member: str):
+    return (nicksToUsers[member])
 
 
 def readJson(name: str) -> dict:
