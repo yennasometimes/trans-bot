@@ -1,4 +1,3 @@
-# This example requires the 'message_content' intent.
 import os
 
 from dotenv import load_dotenv
@@ -12,8 +11,6 @@ from utils import readJson, getName, writeJson
 
 from utils import bot
 
-load_dotenv()
-
 
 @bot.event
 async def on_ready():
@@ -26,13 +23,11 @@ async def flip(ctx):
 
 
 @bot.command()  # Generates a random integer between 2 given integers, inclusive
-async def numgen(ctx, arg1, arg2):
-    await ctx.send(random.randint(int(arg1), int(arg2)))
-
-
-@bot.command()  # Dice system for DnD. Will probably be made into a normal Python code block when the hardware is built
-async def d(ctx, arg):
-    await ctx.send(random.randint(1, int(arg)))
+async def numgen(ctx, a: int, b: int = None):
+    if b is None:
+        await ctx.send(random.randint(1, int(a)))
+        return
+    await ctx.send(random.randint(int(a), int(b)))
 
 
 @bot.command()
@@ -134,4 +129,5 @@ async def removeChore(ctx, newChore: str = None, member: discord.Member = None):
     writeJson(data, getName(member))
     await ctx.send(f'{getName(member)}s chores are now {", ".join(data["Chores"])}')
 
+load_dotenv()
 bot.run(os.getenv("KEY"))
