@@ -49,7 +49,7 @@ async def awardpoints(ctx: discord.Interaction, newpoints: int, member: discord.
     await ctx.response.send_message(f'{getName(member)} now has {dict["Points"]} points')
 
 
-@ bot.tree.command(description="Removes points from a user. Leave blank to remove your points.", guild=guildID)
+@bot.tree.command(description="Removes points from a user. Leave blank to remove your points.", guild=guildID)
 async def removepoints(ctx: discord.Interaction, newpoints: int, member: discord.Member = None):
     if member is None:
         member = ctx.author
@@ -63,7 +63,7 @@ async def removepoints(ctx: discord.Interaction, newpoints: int, member: discord
     await ctx.response.send_message(f'{getName(member)} now has {dict["Points"]} points')
 
 
-@ bot.tree.command(description="Transfers points from you to a user.", guild=guildID)
+@bot.tree.command(description="Transfers points from you to a user.", guild=guildID)
 async def givepoints(ctx: discord.Interaction, newpoints: int, member: discord.Member = None):
     if member is None:
         await ctx.response.send_message("Please add the roomate to give points to.")
@@ -86,7 +86,7 @@ async def givepoints(ctx: discord.Interaction, newpoints: int, member: discord.M
     await ctx.response.send_message(f'{getName(member)} now has {receiver["Points"]} points and {getName(ctx.author)} has {senderPoints}')
 
 
-@ bot.command(description="Checks the balance of a user. Leave blank for your balance", guild=guildID)
+@bot.tree.command(description="Checks the balance of a user. Leave blank for your balance", guild=guildID)
 async def bal(ctx: discord.Interaction, member: discord.Member = None):
     if member is None:
         points = readJson(getName(ctx.author))["Points"]
@@ -97,7 +97,7 @@ async def bal(ctx: discord.Interaction, member: discord.Member = None):
         await ctx.response.send_message(f'{getName(member)} has {points} points')
 
 
-@bot.command(description="Checks the chores that a user has to do. Leave blank for your chores.", guild=guildID)
+@bot.tree.command(description="Checks the chores that a user has to do. Leave blank for your chores.", guild=guildID)
 async def checkchores(ctx: discord.Interaction, member: discord.Member = None):
     if member is None:
         member = ctx.author
@@ -105,35 +105,35 @@ async def checkchores(ctx: discord.Interaction, member: discord.Member = None):
     await ctx.response.send_message(f'{getName(member)}s chores are {", ".join(data["Chores"])}')
 
 
-@bot.command(description="Adds a chore to someone's list. Leave blank to add to yours.", guild=guildID)
-async def addchore(ctx: discord.Interaction, newChore: str = None, member: discord.Member = None):
+@bot.tree.command(description="Adds a chore to someone's list. Leave blank to add to yours.", guild=guildID)
+async def addchore(ctx: discord.Interaction, newchore: str = None, member: discord.Member = None):
     if member is None:
         member = ctx.author
-    if newChore is None:
+    if newchore is None:
         await ctx.response.send_message("Please Provide a chore")
 
     data = readJson(getName(member))
-    data["Chores"].append(newChore)
+    data["Chores"].append(newchore)
 
     writeJson(data, getName(member))
     await ctx.response.send_message(f'{getName(member)}s chores are now {", ".join(data["Chores"])}')
 
 
-@bot.command(description="Removes a chore from someone's list. Leave blank to remove from yours.")
-async def removechore(ctx: discord.Interaction, newChore: str = None, member: discord.Member = None):
+@bot.tree.command(description="Removes a chore from someone's list. Leave blank to remove from yours.")
+async def removechore(ctx: discord.Interaction, newchore: str = None, member: discord.Member = None):
     if member is None:
         member = ctx.author
-    if newChore is None:
+    if newchore is None:
         await ctx.response.send_message("Please Provide a chore")
         return
 
     data = readJson(getName(member))
 
-    if newChore not in ", ".join(data["Chores"]):
+    if newchore not in ", ".join(data["Chores"]):
         await ctx.response.send_message("They do not have that chore")
         return
 
-    data["Chores"].remove(newChore)
+    data["Chores"].remove(newchore)
 
     writeJson(data, getName(member))
     await ctx.response.send_message(f'{getName(member)}s chores are now {", ".join(data["Chores"])}')
