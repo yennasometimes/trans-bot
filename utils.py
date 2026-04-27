@@ -3,6 +3,7 @@ import discord
 import os
 
 from discord.ext import commands
+
 import json
 
 nicksToUsers = {
@@ -16,11 +17,11 @@ nicksToUsers = {
     "swethort": "Melanie"
 }
 
+guildID = discord.Object(id=1496328699077857331)
 
 intents = discord.Intents.default()
 intents.message_content = True
-
-bot = commands.Bot(command_prefix='.', intents=intents)
+bot = commands.Bot(command_prefix='!$', intents=intents)
 
 
 def getName(member: discord.Member):
