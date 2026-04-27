@@ -6,26 +6,27 @@ from discord.ext import commands
 
 import json
 
-nicksToUsers = {
+
+usersToNames = {
     "ace_managment": "Ace",
     "alphariusfake": "Cassandra",
     ".axolotter": "Jax",
     "typowriter2060": "Jamie",
     "zzero123": "Jay",
-    "753969299718406247": "Yenna",
+    "yennasometimes": "Yenna",
     "dusklord121": "Ben",
     "swethort": "Melanie"
 }
-
-guildID = discord.Object(id=1496328699077857331)
 
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='!$', intents=intents)
 
+guildID = discord.Object(id=1496328699077857331)
 
-def getName(member: str):
-    return (nicksToUsers[member])
+
+def getName(member):
+    return (usersToNames[str(member.name)])
 
 
 def readJson(name: str) -> dict:
