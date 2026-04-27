@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 
 import discord
 
+import random
+
 from utils import readJson, getName, writeJson
 
 
@@ -15,7 +17,22 @@ load_dotenv()
 
 @bot.event
 async def on_ready():
-    print("Ready!")
+    print(f"We have logged in as {bot.user}")
+
+
+@bot.command()  # Coinflip
+async def flip(ctx):
+    await ctx.send(random.choice(["Heads!", "Tails!"]))
+
+
+@bot.command()  # Generates a random integer between 2 given integers, inclusive
+async def numgen(ctx, arg1, arg2):
+    await ctx.send(random.randint(int(arg1), int(arg2)))
+
+
+@bot.command()  # Dice system for DnD. Will probably be made into a normal Python code block when the hardware is built
+async def d(ctx, arg):
+    await ctx.send(random.randint(1, int(arg)))
 
 
 @bot.command()
