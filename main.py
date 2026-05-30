@@ -1,13 +1,15 @@
-# This example requires the 'message_content' intent.
 import os
 
 from dotenv import load_dotenv
 
 import discord
+from discord.ext import tasks
 
 from typing import Literal
 
 import random
+
+from gui import screenUpdate
 
 from utils import readJson, getName, writeJson
 
@@ -15,11 +17,17 @@ from utils import bot
 
 from utils import guildID
 
+@tasks.loop(seconds=15.0)
+async def guiLoop():
+    screenUpdate()
+
 
 @bot.event
 async def on_ready():
     print(f"We have logged in as {bot.user}")
-    
+    if not guiLoop.is_running():
+        guiLoop.start()  # Start the loop here
+
     try:  # Try Except block to sync commands to Discord
         synced = await bot.tree.sync(guild=guildID)
         print(f"Synced {len(synced)} commands to guild {guildID.id}")
@@ -165,7 +173,6 @@ async def chores(ctx: discord.Interaction, action: Literal["view", "add", "remov
 
         case _:
             await ctx.response.send_message("Please check your syntax.")
-
 
 load_dotenv()
 bot.run(os.getenv("KEY"))
