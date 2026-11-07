@@ -11,8 +11,8 @@ usersToNames = {
     "typowriter2060": "Jamie",
     "zzero123": "Jay",
     "yennasometimes": "Yenna",
-    "dusklord121": "Ben",
-    "swethort": "Melanie"
+    "dusklord121": "Onyx",
+    "g.l.n": "Melanie"
 }
 
 
