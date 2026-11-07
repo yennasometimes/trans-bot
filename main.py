@@ -43,40 +43,40 @@ async def points(ctx: discord.Interaction, action: Literal["balance", "award", "
         case "balance":
             if member is None:
                 member = ctx.user
-            points = readJson(getName(member))["Points"]
-            await ctx.response.send_message(f'{getName(member)} has {points} points.')
+            points = readJson(getName(member.id))["Points"]
+            await ctx.response.send_message(f'{getName(member.id)} has {points} points.')
         
         case "award":
             if member is None:
                 member = ctx.user
-            dict = readJson(getName(member))
+            dict = readJson(getName(member.id))
             dict["Points"] += points
-            writeJson(dict, getName(member))
-            await ctx.response.send_message(f'{getName(member)} now has {dict["Points"]} points.')
+            writeJson(dict, getName(member.id))
+            await ctx.response.send_message(f'{getName(member.id)} now has {dict["Points"]} points.')
 
         case "remove":
             if member is None:
                 member = ctx.user
-            dict = readJson(getName(member))
+            dict = readJson(getName(member.id))
             dict["Points"] += points
-            writeJson(dict, getName(member))
-            await ctx.response.send_message(f'{getName(member)} now has {dict["Points"]} points.')
+            writeJson(dict, getName(member.id))
+            await ctx.response.send_message(f'{getName(member.id)} now has {dict["Points"]} points.')
         
         case "transfer":
             if member is None:
-                await ctx.response.send_message('Please add the roomate to give points to.')
+                await ctx.response.send_message('Please add the person to give points to.')
                 return
-            sender = readJson(getName(ctx.user))
-            receiver = readJson(getName(member))
+            sender = readJson(getName(ctx.user.id))
+            receiver = readJson(getName(member.id))
             if sender["Points"] - points < 0:
                 await ctx.response.send_message(f'You only have {sender["Points"]} points.')
                 return
             senderPoints = sender["Points"] - points
             sender["Points"] = senderPoints
             receiver["Points"] += points
-            writeJson(sender, getName(ctx.user))
-            writeJson(receiver, getName(member))
-            await ctx.response.send_message(f'{getName(member)} now has {receiver["Points"]} points and {getName(ctx.user)} now has {senderPoints} points.')
+            writeJson(sender, getName(ctx.user.id))
+            writeJson(receiver, getName(member.id))
+            await ctx.response.send_message(f'{getName(member.id)} now has {receiver["Points"]} points and {getName(ctx.user.id)} now has {senderPoints} points.')
 
         case _:
             await ctx.response.send_message("Please check your syntax.")

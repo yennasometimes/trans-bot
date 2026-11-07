@@ -4,7 +4,7 @@ from discord.ext import commands
 import json
 
 
-usersToNames = {
+IDsToNames = {
     "799405045505589300": "Ace",
     "1274554541345476660": "Alice",
     "1115027628403998821": "Cass",
@@ -30,13 +30,13 @@ intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='!$', intents=intents)
 
-guildID = discord.Object(id=1568507855269658796)
+guildID = discord.Object(id=1541636515061571584)
 # 1568507855269658796 testing server
 # 1496328699077857331 suite server
 # 1541636515061571584 2067 server
 
-def getName(member):
-    return (usersToNames[str(member.ID)])
+def getName(memberID):
+    return (IDsToNames[str(memberID)])
 
 
 def readJson(name: str) -> dict:
