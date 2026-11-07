@@ -5,14 +5,24 @@ import json
 
 
 usersToNames = {
-    "ace_managment": "Ace",
-    "alphariusfake": "Cassandra",
-    ".axolotter": "Jax",
-    "typowriter2060": "Jamie",
-    "zzero123": "Jay",
-    "yennasometimes": "Yenna",
-    "dusklord121": "Onyx",
-    "g.l.n": "Melanie"
+    "799405045505589300": "Ace",
+    "1274554541345476660": "Alice",
+    "1115027628403998821": "Cass",
+    "889683436846084096": "Duncan",
+    "1156194217719238729": "Felix",
+    "769694825682829383": "Jacoby",
+    "785554065466851388": "Jamie",
+    "742055762448089200": "Jax",
+    "695653492370440232": "Jay",
+    "957990327912894504": "Kate",
+    "1562240338477842495": "Melanie",
+    "757639188421148893": "Nixon",
+    "689960778786275342": "Onyx",
+    "622934258901581836": "Robbie",
+    "812008850223792139": "Tanmay",
+    "604053007277097064": "Tejas",
+    "341290788220829697": "Salvi",
+    "753969299718406247": "Yenna"
 }
 
 
@@ -26,7 +36,7 @@ guildID = discord.Object(id=1568507855269658796)
 # 1541636515061571584 2067 server
 
 def getName(member):
-    return (usersToNames[str(member.name)])
+    return (usersToNames[str(member.ID)])
 
 
 def readJson(name: str) -> dict:
