@@ -22,8 +22,10 @@ intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='!$', intents=intents)
 
-guildID = discord.Object(id=1496328699077857331)
-
+guildID = discord.Object(id=1568507855269658796)
+# 1568507855269658796 testing server
+# 1496328699077857331 suite server
+# 1541636515061571584 2067 server
 
 def getName(member):
     return (usersToNames[str(member.name)])
