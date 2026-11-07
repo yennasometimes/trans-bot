@@ -82,57 +82,5 @@ async def points(ctx: discord.Interaction, action: Literal["balance", "award", "
             await ctx.response.send_message("Please check your syntax.")
 
 
-#  Chore commands
-@bot.tree.command(description="Chore commands", guild=guildID)
-@discord.app_commands.describe(action="What you want to do", chore="Chore to modify", member="Who will be affected")
-async def chores(ctx: discord.Interaction, action: Literal["view", "add", "remove", "transfer"], chore: str = None, member: discord.User = None):
-    match action:
-        case "view":
-            if member is None:
-                member = ctx.user
-            data = readJson(getName(member))
-            await ctx.response.send_message(f'{getName(member)}s chores are {", ".join(data["Chores"])}.')
-        
-        case "add":
-            if member is None:
-                member = ctx.user
-            data = readJson(getName(member))
-            data["Chores"].append(chore)
-            writeJson(data, getName(member))
-            await ctx.response.send_message(f'{getName(member)}\'s chores are now {", ".join(data["Chores"])}.')
-        
-        case "remove":
-            if member is None:
-                member = ctx.user
-                data = readJson(getName(member))
-            if chore not in ", ".join(data["Chores"]):
-                await ctx.response.send_message("They do not have that chore.")
-                return
-            data["Chores"].remove(chore)
-            writeJson(data, getName(member))
-            await ctx.response.send_message(f'{getName(member)}s chores are now {", ".join(data["Chores"])}.')
-        
-        case "transfer":
-            if member is None:
-                await ctx.response.send_message("Please input the roomate to transfer your chore to.")
-                return
-            sender = readJson(getName(ctx.user))
-            receiver = readJson(getName(member))
-            if chore not in sender["Chores"]:
-                await ctx.response.send_message("You do not have that chore.")
-                return
-            if chore in receiver["Chores"]:
-                await ctx.response.send_message("They already have that chore.")
-                return
-            sender["Chores"].remove(chore)
-            receiver["Chores"].append(chore)
-            writeJson(sender, getName(ctx.user))
-            writeJson(receiver, getName(member))
-            await ctx.response.send_message(f'Chore transferred from {getName(ctx.user)} to {getName(member)}.')
-
-        case _:
-            await ctx.response.send_message("Please check your syntax.")
-
-
 load_dotenv()
 bot.run(os.getenv("KEY"))
